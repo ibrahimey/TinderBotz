@@ -286,9 +286,12 @@ class Session:
             age = helper.get_age()
 
             bio, passions, lifestyle, basics, anthem, looking_for = helper.get_bio_and_passions()
-            image_urls = helper.get_image_urls(quickload)
-            instagram = helper.get_insta(bio)
-            rowdata = helper.get_row_data()
+            # image_urls = helper.get_image_urls(quickload)
+            image_urls = helper.get_image_urls_new()
+            instagram = None
+            # instagram = helper.get_insta(bio)
+            # TODO: instead of searchin for insta in bio can get insta from profile section
+            rowdata = helper.get_row_data() # TODO: make it work
             work = rowdata.get('work')
             study = rowdata.get('study')
             home = rowdata.get('home')
