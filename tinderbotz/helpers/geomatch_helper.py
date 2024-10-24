@@ -156,18 +156,22 @@ class GeomatchHelper:
             self._open_profile()
 
         try:
-            xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div/div[2]/div[1]/div/div[1]/div/h1'
+            # xpath = '//main/div[1]/div/div/div/div[1]/div[1]/div/div[2]/div[1]/div/div[1]/div/h1/span[1]'
+            # '//main/div/div/div/div/div[2]/button/div/div/div/div/div[1]/div/div/span'
             # wait for element to appear
-            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
-                (By.XPATH, xpath)))
+            # WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
 
-            element = self.browser.find_element(By.XPATH, xpath)
-
+            #element = self.browser.find_element(By.XPATH, xpath)
+            # element = self.browser.find_elements(By.CSS_SELECTOR, "span[itemprop='name']")[-1]
+            time.sleep(0.1) # TODO: instead of sleep try this wait for element thingy
+            element = self.browser.find_element(By.CSS_SELECTOR, "span[class='Pend(8px)']")
             name = element.text
-            if not name:
-                xpath2 = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div/div[2]/div[1]/div/div[1]/div/h1'
-                element2 = self.browser.find_element(By.XPATH, xpath2)
-                name = element2.text
+
+            return name
+        except NoSuchElementException:
+            # TODO: This part probably does not work or maybe it should also have try except
+            element = self.browser.find_elements(By.CSS_SELECTOR, "span[itemprop='name']")[-1]
+            name = element.text
 
             return name
         except Exception as e:
@@ -180,19 +184,20 @@ class GeomatchHelper:
         age = None
 
         try:
-            xpath = f'{content}/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div/div[2]/div[1]/div/div[1]/span'
-
+            # xpath = '//main/div/div[1]/div[1]/div/div[2]/div[1]/div/div[1]/div/h1/span[2]'
+            # time.sleep(0.2)
             # wait for element to appear
-            WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located(
-                (By.XPATH, xpath)))
+            # WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
 
-            element = self.browser.find_element(By.XPATH, xpath)
+            # element = self.browser.find_element(By.XPATH, xpath)
+            
+            element = self.browser.find_element(By.CSS_SELECTOR, "span[class='Whs(nw) Typs(display-2-strong)']")
             try:
                 age = int(element.text)
             except ValueError:
                 age = None
 
-        except:
+        except Exception as e:
             pass
 
         return age
@@ -217,6 +222,7 @@ class GeomatchHelper:
     _GENDER_SVG_PATH = "M15.507 13.032c1.14-.952 1.862-2.656 1.862-5.592C17.37 4.436 14.9 2 11.855 2 8.81 2 6.34 4.436 6.34 7.44c0 3.07.786 4.8 2.02 5.726-2.586 1.768-5.054 4.62-4.18 6.204 1.88 3.406 14.28 3.606 15.726 0 .686-1.71-1.828-4.608-4.4-6.338"
 
     def get_row_data(self):
+        # TODO: Look into this part: Check if SVG paths are correct
         if not self._is_profile_opened():
             self._open_profile()
 
@@ -227,7 +233,7 @@ class GeomatchHelper:
 
         for row in rows:
             svg = row.find_element(By.XPATH, ".//*[starts-with(@d, 'M')]").get_attribute('d')
-            value = row.find_element(By.XPATH, ".//div[2]").text
+            value = row.find_element(By.XPATH, ".//div[2]").text                    # TODO: maybe one /
             if svg == self._WORK_SVG_PATH:
                 rowdata['work'] = value
             if svg == self._STUDYING_SVG_PATH:
@@ -257,10 +263,17 @@ class GeomatchHelper:
         bio = None
         looking_for = None
 
-        infoItems = {
+        # TODO: I added languages i know and relationship type but currently I am not returning them
+
+        infoItemsDict = {
+            "lifestyle": {},
+            "basics": {}
+        }
+
+        infoItemsList = {
             "passions": [],
-            "lifestyle": [],
-            "basics": []
+            "languages i know": [],
+            "relationship type": []
         }
 
         anthem = None
@@ -270,7 +283,9 @@ class GeomatchHelper:
 
         # Bio
         try:
-            bio = self.browser.find_element(By.CSS_SELECTOR, 'div[class*="Px(16px) Py(12px) Us(t)"').text
+            # TODO: maybe change to css selector
+            # bio = self.browser.find_element(By.CSS_SELECTOR, 'div[class*="Px(16px) Py(12px) Us(t)"').text
+            bio = self.browser.find_element(By.XPATH, '//main/div[1]/div/div/div/div[1]/div[1]/div/div[2]/section[1]/div').text
 
         except Exception as e:
             pass
@@ -285,17 +300,28 @@ class GeomatchHelper:
 
         # Basics, Lifestyle and Passions
         try:
-            sections = self.browser.find_elements(By.CSS_SELECTOR, "div[class='Px(16px) Py(12px)']")
+            sections = self.browser.find_elements(By.CSS_SELECTOR, "div[class='Px(16px) Py(12px)']") # TODO: maybe add section instead of div if the list is empty or look for both coz it seems like sometimes there are both
+            # Try with section instead of div
             for section in sections:
                 headline = section.find_element(By.TAG_NAME, "h2").text.lower()
                 
-                if headline in infoItems.keys():
+                if headline in infoItemsDict.keys():
                     infoElements = section.find_elements(By.CSS_SELECTOR, "div[class^='Bdrs(100px)']")
                     for infoElement in infoElements:
-                        infoItems[headline].append(infoElement.text)
+                        # TODO: handle when there is +1 more
+                        # key = infoElement.find_element(By.TAG_NAME, "span").text.lower()
+                        key = infoElement.find_element(By.TAG_NAME, "span").get_attribute("textContent").lower()
+                        if key:
+                            infoItemsDict[headline][key]= infoElement.text
+                        else:
+                            infoItemsDict[headline][infoElement.text] = infoElement.text
+                elif headline in infoItemsList.keys():
+                    infoElements = section.find_elements(By.CSS_SELECTOR, "div[class^='Bdrs(100px)']")
+                    for infoElement in infoElements:
+                        infoItemsList[headline].append(infoElement.text)
                 elif headline == 'my anthem':
-                    song = section.find_element(By.CSS_SELECTOR, "div[class$='C($c-ds-text-primary)']").text
-                    artist = section.find_element(By.CSS_SELECTOR, "div[class$='C($c-ds-text-secondary)']").text
+                    song = section.find_element(By.XPATH, "//main/div[1]/div/div/div/div[1]/div[1]/div/div[2]/section[2]/div/div/div[1]/div[1]").text
+                    artist = section.find_element(By.XPATH, "//main/div[1]/div/div/div/div[1]/div[1]/div/div[2]/section[2]/div/div/div[1]/div[2]/span']").text
                     anthem = {
                         "song": song,
                         "artist": artist
@@ -312,7 +338,34 @@ class GeomatchHelper:
         except Exception as e:
             pass
 
+        infoItems = infoItemsList | infoItemsDict
+
         return bio, infoItems["passions"], infoItems["lifestyle"], infoItems["basics"], anthem, looking_for
+
+    def get_image_urls_new(self):
+        if not self._is_profile_opened():
+            self._open_profile()
+
+        image_urls = []
+        len_pics = len(self.browser.find_elements(By.XPATH, "//main/div[1]/div/div/div/div[1]/div[1]/div/div[1]/span/div/div[1]/div"))
+
+
+        for i in range(1, len_pics + 1):
+            # Get the url of image
+            try:
+                element = self.browser.find_element(By.XPATH, f"//main/div[1]/div/div/div/div[1]/div[1]/div/div[1]/span/div/div[1]/div[{i}]/div/div")
+                # TODO: maybe can try to add this wait thingy (WebDriverWait) to not get the exception
+                image_url = element.value_of_css_property('background-image').split('\"')[1]
+                image_urls.append(image_url)
+            except NoSuchElementException:
+                print('Could not find image, skipping')
+
+            action = ActionChains(self.browser)
+            action.send_keys(Keys.SPACE).perform()
+            time.sleep(0.5)
+
+        return image_urls
+
 
     def get_image_urls(self, quickload=True):
         if not self._is_profile_opened():
