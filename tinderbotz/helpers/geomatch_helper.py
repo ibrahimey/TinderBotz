@@ -263,13 +263,12 @@ class GeomatchHelper:
         bio = None
         looking_for = None
 
-        # TODO: I added languages i know and relationship type but currently I am not returning them
-
         infoItemsDict = {
             "lifestyle": {},
             "basics": {}
         }
 
+        # Can also add pronouns idj if there are any more sections
         infoItemsList = {
             "passions": [],
             "languages i know": [],
@@ -278,14 +277,10 @@ class GeomatchHelper:
 
         anthem = None
 
-        lifestyle = []
-
-
         # Bio
         try:
-            # TODO: maybe change to css selector
-            # bio = self.browser.find_element(By.CSS_SELECTOR, 'div[class*="Px(16px) Py(12px) Us(t)"').text
-            bio = self.browser.find_element(By.XPATH, '//main/div[1]/div/div/div/div[1]/div[1]/div/div[2]/section[1]/div').text
+            bio = self.browser.find_element(By.CSS_SELECTOR, 'section[class*="Px(16px) Py(12px) Us(t)"] > div').text
+            # bio = self.browser.find_element(By.XPATH, '//main/div[1]/div/div/div/div[1]/div[1]/div/div[2]/section[1]/div').text
 
         except Exception as e:
             pass
@@ -300,8 +295,8 @@ class GeomatchHelper:
 
         # Basics, Lifestyle and Passions
         try:
-            sections = self.browser.find_elements(By.CSS_SELECTOR, "div[class='Px(16px) Py(12px)']") # TODO: maybe add section instead of div if the list is empty or look for both coz it seems like sometimes there are both
-            # Try with section instead of div
+            sections = self.browser.find_elements(By.CSS_SELECTOR, "div[class='Px(16px) Py(12px)']")
+
             for section in sections:
                 headline = section.find_element(By.TAG_NAME, "h2").text.lower()
                 
@@ -329,18 +324,45 @@ class GeomatchHelper:
                 else:
                     print("Unknown Sect Headline:", headline)
 
+        except Exception as e:
+            pass
 
-            #if ('Passions' in passions_el.find_element(By.TAG_NAME, "h2").text):
-            #    #print("Passions Text", passions_el.text)
-            #    elements = passions_el.find_element(By.TAG_NAME, 'div').find_element(By.TAG_NAME, 'div').find_elements(By.TAG_NAME, 'div')
-            #    for el in elements:
-            #        passions.append(el.text)
+        try:
+            sections = self.browser.find_elements(By.CSS_SELECTOR, "section[class='Px(16px) Py(12px)']")
+
+            for section in sections:
+                headline = section.find_element(By.TAG_NAME, "h2").text.lower()
+
+                if headline in infoItemsDict.keys():
+                    infoElements = section.find_elements(By.CSS_SELECTOR, "li[class^='Bdrs(100px)']")
+                    for infoElement in infoElements:
+                        # TODO: handle when there is +1 more
+                        key = infoElement.find_element(By.TAG_NAME, "span").get_attribute("textContent").lower()
+                        if key:
+                            infoItemsDict[headline][key] = infoElement.text
+                        else:
+                            infoItemsDict[headline][infoElement.text] = infoElement.text
+                elif headline in infoItemsList.keys():
+                    infoElements = section.find_elements(By.CSS_SELECTOR, "li[class^='Bdrs(100px)']")
+                    for infoElement in infoElements:
+                        infoItemsList[headline].append(infoElement.text)
+                elif headline == 'my anthem':
+                    # TODO: Fix this probably should add try except
+                    song = section.find_element(By.CSS_SELECTOR, "div[class*='Mb(4px) Ell']").text
+                    artist = section.find_element(By.CSS_SELECTOR, "span[class*='Mstart(4px)']").text
+                    anthem = {
+                        "song": song,
+                        "artist": artist
+                    }
+                else:
+                    print("Unknown Sect Headline:", headline)
+
         except Exception as e:
             pass
 
         infoItems = infoItemsList | infoItemsDict
 
-        return bio, infoItems["passions"], infoItems["lifestyle"], infoItems["basics"], anthem, looking_for
+        return bio, infoItems["passions"], infoItems["lifestyle"], infoItems["basics"], infoItems["languages i know"], infoItems["relationship type"], anthem, looking_for
 
     def get_image_urls_new(self):
         if not self._is_profile_opened():
