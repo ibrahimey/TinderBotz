@@ -285,7 +285,7 @@ class Session:
 
             age = helper.get_age()
 
-            bio, passions, lifestyle, basics, anthem, looking_for = helper.get_bio_and_passions()
+            bio, passions, lifestyle, basics, languages, relationship_type, anthem, looking_for = helper.get_bio_and_passions()
             # image_urls = helper.get_image_urls(quickload)
             image_urls = helper.get_image_urls_new()
             instagram = None
@@ -299,7 +299,9 @@ class Session:
             gender = rowdata.get('gender')
 
             return Geomatch(name=name, age=age, work=work, gender=gender, study=study, home=home, distance=distance,
-                            bio=bio, passions=passions, lifestyle=lifestyle, basics=basics, anthem=anthem, looking_for=looking_for, image_urls=image_urls, instagram=instagram)
+                            bio=bio, passions=passions, lifestyle=lifestyle, basics=basics, languages=languages,
+                            relationship_type=relationship_type, anthem=anthem, looking_for=looking_for,
+                            image_urls=image_urls, instagram=instagram)
 
     def get_chat_ids(self, new=True, messaged=True):
         if self._is_logged_in():

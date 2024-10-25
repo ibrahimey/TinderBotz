@@ -2,7 +2,7 @@ from tinderbotz.helpers.storage_helper import StorageHelper
 
 class Geomatch:
 
-    def __init__(self, name, age, work, study, home, gender, bio, lifestyle, basics, anthem, looking_for = None, distance = None, passions = None, image_urls = None, instagram = None):
+    def __init__(self, name, age, work, study, home, gender, bio, lifestyle, basics, languages, relationship_type, anthem, looking_for = None, distance = None, passions = None, image_urls = None, instagram = None):
         self.name = name
         self.age = age
         self.work = work
@@ -13,6 +13,8 @@ class Geomatch:
         self.bio = bio
         self.lifestyle = lifestyle
         self.basics = basics
+        self.languages = languages
+        self.relationship_type = relationship_type
         self.anthem = anthem
         self.looking_for = looking_for
         self.distance = distance
@@ -20,6 +22,7 @@ class Geomatch:
         self.instagram = instagram
 
         # create a unique id for this person
+        # TODO: maybe make the id not random so if we get duplicate profile they should have the same id
         self.id = "{}{}_{}".format(name, age, StorageHelper.id_generator(size=4))
         self.images_by_hashes = []
 
@@ -72,6 +75,12 @@ class Geomatch:
     def get_basics(self):
         return self.basics
 
+    def get_languages(self):
+        return self.languages
+
+    def get_relationship_type(self):
+        return self.relationship_type
+
     def get_anthem(self):
         return self.anthem
     
@@ -103,6 +112,8 @@ class Geomatch:
             "basics": self.get_basics(),
             "lifestyle": self.get_lifestyle(),
             "passions": self.get_passions(),
+            "languages": self.get_languages(),
+            "relationship_type": self.get_relationship_type(),
             "anthem": self.get_anthem(),
             "looking_for": self.get_looking_for(),
             "image_urls": self.image_urls,
