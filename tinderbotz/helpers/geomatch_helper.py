@@ -232,7 +232,7 @@ class GeomatchHelper:
 
 
     def get_row_data(self):
-        # TODO: Look into this part: Check if SVG paths are correct
+
         if not self._is_profile_opened():
             self._open_profile()
 
@@ -243,7 +243,7 @@ class GeomatchHelper:
 
         for row in rows:
             svg = row.find_element(By.XPATH, ".//*[starts-with(@d, 'M')]").get_attribute('d')
-            value = row.find_element(By.XPATH, ".//div[2]").text                    # TODO: maybe one /
+            value = row.find_element(By.XPATH, ".//div[2]").text
             if svg == self._WORK_SVG_PATH:
                 rowdata['work'] = value
             if svg == self._STUDYING_SVG_PATH:
@@ -314,7 +314,6 @@ class GeomatchHelper:
                     infoElements = section.find_elements(By.CSS_SELECTOR, "div[class^='Bdrs(100px)']")
                     for infoElement in infoElements:
                         # TODO: handle when there is +1 more
-                        # key = infoElement.find_element(By.TAG_NAME, "span").text.lower()
                         key = infoElement.find_element(By.TAG_NAME, "span").get_attribute("textContent").lower()
                         if key:
                             infoItemsDict[headline][key]= infoElement.text
@@ -357,7 +356,6 @@ class GeomatchHelper:
                     for infoElement in infoElements:
                         infoItemsList[headline].append(infoElement.text)
                 elif headline == 'my anthem':
-                    # TODO: Fix this probably should add try except
                     song = section.find_element(By.CSS_SELECTOR, "div[class*='Mb(4px) Ell']").text
                     artist = section.find_element(By.CSS_SELECTOR, "span[class*='Mstart(4px)']").text
                     anthem = {
@@ -385,16 +383,20 @@ class GeomatchHelper:
         for i in range(1, len_pics + 1):
             # Get the url of image
             try:
-                element = self.browser.find_element(By.XPATH, f"//main/div[1]/div/div/div/div[1]/div[1]/div/div[1]/span/div/div[1]/div[{i}]/div/div")
-                # TODO: maybe can try to add this wait thingy (WebDriverWait) to not get the exception
+                xpath = f"//main/div[1]/div/div/div/div[1]/div[1]/div/div[1]/span/div/div[1]/div[{i}]/div/div"
+                WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
+                element = self.browser.find_element(By.XPATH, xpath)
+
                 image_url = element.value_of_css_property('background-image').split('\"')[1]
                 image_urls.append(image_url)
             except NoSuchElementException:
                 print('Could not find image, skipping')
+            except Exception as e:
+                print(e)
 
             action = ActionChains(self.browser)
             action.send_keys(Keys.SPACE).perform()
-            time.sleep(0.5)
+            time.sleep(0.1)
 
         return image_urls
 
