@@ -17,8 +17,11 @@ if __name__ == "__main__":
     password = "password123"
     
     # login using your google account with a verified email! Alternatively, you can use Facebook login
-    session.login_using_facebook(email, password)
+    session.login_manually()
 
+    time.sleep(10)
+
+    count = 0
     # start scraping as much geomatches as possible
     while True:
         # When scraping we want ALL images and not just the first few.
@@ -48,4 +51,10 @@ if __name__ == "__main__":
         # make a random sleep between dislikes between 0 and 4 seconds to mimic looks human-like, not spammy behaviour
         sleepy_time = random.random() * 4
         time.sleep(sleepy_time)
+
+        count += 1
+
+        if count % 300 == 0:
+            sleepy_time = random.random() * 600 + 600
+            time.sleep(sleepy_time)
 

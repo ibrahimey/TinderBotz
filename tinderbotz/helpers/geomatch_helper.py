@@ -381,14 +381,14 @@ class GeomatchHelper:
         image_urls = []
         len_pics = len(self.browser.find_elements(By.XPATH, "//main/div[1]/div/div/div/div[1]/div[1]/div/div[1]/span/div/div[1]/div"))
 
-
         for i in range(1, len_pics + 1):
             # Get the url of image
             try:
                 element = self.browser.find_element(By.XPATH, f"//main/div[1]/div/div/div/div[1]/div[1]/div/div[1]/span/div/div[1]/div[{i}]/div/div")
                 # TODO: maybe can try to add this wait thingy (WebDriverWait) to not get the exception
-                image_url = element.value_of_css_property('background-image').split('\"')[1]
-                image_urls.append(image_url)
+                image_url = element.value_of_css_property('background-image').split('\"')
+                if len(image_url) > 1:
+                    image_urls.append(image_url[1])
             except NoSuchElementException:
                 print('Could not find image, skipping')
 

@@ -35,7 +35,7 @@ class StorageHelper:
             response = urllib.request.urlopen(request_)  # store the response
 
         except Exception as e:
-            if amount_of_attempts < 20:
+            if amount_of_attempts < 3:
                 sleepy_time = amount_of_attempts * 30
                 print("Attempt number {}: sleeping for {} seconds ...".format(amount_of_attempts, sleepy_time))
                 time.sleep(sleepy_time)

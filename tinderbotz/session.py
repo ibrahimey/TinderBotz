@@ -197,6 +197,11 @@ class Session:
             print('Manual interference is required.')
             input('press ENTER to continue')
 
+    def login_manually(self):
+        if not self._is_logged_in():
+            print('Manual interference is required.')
+            input('press ENTER to continue')
+
     def store_local(self, match):
         if isinstance(match, Match):
             filename = 'matches'
@@ -288,9 +293,7 @@ class Session:
             bio, passions, lifestyle, basics, languages, relationship_type, anthem, looking_for = helper.get_bio_and_passions()
             # image_urls = helper.get_image_urls(quickload)
             image_urls = helper.get_image_urls_new()
-            instagram = None
-            # instagram = helper.get_insta(bio)
-            # TODO: instead of searchin for insta in bio can get insta from profile section
+            instagram = helper.get_insta(bio)
             rowdata = helper.get_row_data() # TODO: make it work
             work = rowdata.get('work')
             study = rowdata.get('study')
