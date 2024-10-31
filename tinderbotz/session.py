@@ -293,18 +293,21 @@ class Session:
             bio, passions, lifestyle, basics, languages, relationship_type, anthem, looking_for = helper.get_bio_and_passions()
             # image_urls = helper.get_image_urls(quickload)
             image_urls = helper.get_image_urls_new()
-            instagram = helper.get_insta(bio)
-            rowdata = helper.get_row_data() # TODO: make it work
+            instagram = helper.get_insta(bio)  # TODO: instead of searchin for insta in bio can get insta from profile section
+            rowdata = helper.get_row_data()
+
             work = rowdata.get('work')
             study = rowdata.get('study')
             home = rowdata.get('home')
             distance = rowdata.get('distance')
             gender = rowdata.get('gender')
+            height = rowdata.get('height')
+            sexuality = rowdata.get('sexuality')
 
-            return Geomatch(name=name, age=age, work=work, gender=gender, study=study, home=home, distance=distance,
-                            bio=bio, passions=passions, lifestyle=lifestyle, basics=basics, languages=languages,
-                            relationship_type=relationship_type, anthem=anthem, looking_for=looking_for,
-                            image_urls=image_urls, instagram=instagram)
+            return Geomatch(name=name, age=age, work=work, gender=gender, height=height, sexuality=sexuality,
+                            study=study, home=home, distance=distance, bio=bio, passions=passions, lifestyle=lifestyle,
+                            basics=basics, languages=languages, relationship_type=relationship_type, anthem=anthem,
+                            looking_for=looking_for, image_urls=image_urls, instagram=instagram)
 
     def get_chat_ids(self, new=True, messaged=True):
         if self._is_logged_in():

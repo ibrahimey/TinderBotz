@@ -214,25 +214,18 @@ class GeomatchHelper:
         except:
             return False
 
-    # _WORK_SVG_PATH = "M7.15 3.434h5.7V1.452a.728.728 0 0 0-.724-.732H7.874a.737.737 0 0 0-.725.732v1.982z"
     _WORK_SVG_PATH = "M16.995 4.37A2.37 2.37 0 0 0 14.625 2h-5.25a2.37 2.37 0 0 0-2.37 2.37v1.635h-5.5C.677 6.005 0 6.677 0 7.505v11.99c0 .828.677 1.5 1.505 1.5h20.99a1.5 1.5 0 0 0 1.5-1.5V7.505a1.5 1.5 0 0 0-1.5-1.5h-5.5zm-7.62-.375A.375.375 0 0 0 9 4.37v1.635h6V4.37a.375.375 0 0 0-.375-.375zM21.625 8c.207 0 .375.168.375.375v10.25a.375.375 0 0 1-.375.375H18.99V8zM2 8.375C2 8.168 2.168 8 2.375 8H5.01v11H2.375A.375.375 0 0 1 2 18.625zM7.005 19h9.99V8h-9.99z"
-    # _STUDYING_SVG_PATH = "M11.87 5.026L2.186 9.242c-.25.116-.25.589 0 .705l.474.204v2.622a.78.78 0 0 0-.344.657c0 .42.313.767.69.767.378 0 .692-.348.692-.767a.78.78 0 0 0-.345-.657v-2.322l2.097.921a.42.42 0 0 0-.022.144v3.83c0 .45.27.801.626 1.101.358.302.842.572 1.428.804 1.172.46 2.755.776 4.516.776 1.763 0 3.346-.317 4.518-.777.586-.23 1.07-.501 1.428-.803.355-.3.626-.65.626-1.1v-3.83a.456.456 0 0 0-.022-.145l3.264-1.425c.25-.116.25-.59 0-.705L12.13 5.025c-.082-.046-.22-.017-.26 0v.001zm.13.767l8.743 3.804L12 13.392 3.257 9.599l8.742-3.806zm-5.88 5.865l5.75 2.502a.319.319 0 0 0 .26 0l5.75-2.502v3.687c0 .077-.087.262-.358.491-.372.29-.788.52-1.232.68-1.078.426-2.604.743-4.29.743s-3.212-.317-4.29-.742c-.444-.161-.86-.39-1.232-.68-.273-.23-.358-.415-.358-.492v-3.687z"
     _STUDYING_SVG_PATH = "M11.171 4.182a1.975 1.975 0 0 1 1.658 0l10.578 4.883c.79.365.79 1.505 0 1.87L20 12.507v4.903a2 2 0 0 1-1.02 1.744l-.607.341a13 13 0 0 1-12.746 0l-.608-.341A2 2 0 0 1 4 17.41v-4.902l-1-.462V14a1 1 0 1 1-2 0v-2.877l-.407-.188c-.79-.365-.79-1.505 0-1.87zm1.658 11.636 4.848-2.238H18v3.83l-.607.342a11 11 0 0 1-10.786 0L6 17.41v-3.83h.323l4.848 2.238a1.977 1.977 0 0 0 1.658 0M20.593 10 12 6.033 3.406 10 12 13.967z"
-    # _HOME_SVG_PATH = "M19.695 9.518H4.427V21.15h15.268V9.52zM3.109 9.482h17.933L12.06 3.709 3.11 9.482z"
     _HOME_SVG_PATH = "M2.25 10.005H3v10.5a1.5 1.5 0 0 0 1.5 1.5h15a1.5 1.5 0 0 0 1.5-1.5v-10.5h.75c.72 0 1.027-.918.45-1.35L12.9 1.68a1.5 1.5 0 0 0-1.8 0L1.8 8.655c-.577.432-.27 1.35.45 1.35M12 3.499 5.985 8.01h12.03zM4.995 20.01V10.005H19V20.01h-3.002v-5.69c0-.716-.581-1.297-1.298-1.297H9.3c-.717 0-1.297.58-1.297 1.297v5.69zm9.008 0H10l-.002-4.992h4.005z"
-    # _LOCATION_SVG_PATH = "M11.436 21.17l-.185-.165a35.36 35.36 0 0 1-3.615-3.801C5.222 14.244 4 11.658 4 9.524 4 5.305 7.267 2 11.436 2c4.168 0 7.437 3.305 7.437 7.524 0 4.903-6.953 11.214-7.237 11.48l-.2.167zm0-18.683c-3.869 0-6.9 3.091-6.9 7.037 0 4.401 5.771 9.927 6.897 10.972 1.12-1.054 6.902-6.694 6.902-10.95.001-3.968-3.03-7.059-6.9-7.059h.001z"
     _LOCATION_SVG_PATH_2 = "M11.445 12.5a2.945 2.945 0 0 1-2.721-1.855 3.04 3.04 0 0 1 .641-3.269 2.905 2.905 0 0 1 3.213-.645 3.003 3.003 0 0 1 1.813 2.776c-.006 1.653-1.322 2.991-2.946 2.993zm0-5.544c-1.378 0-2.496 1.139-2.498 2.542 0 1.404 1.115 2.544 2.495 2.546a2.52 2.52 0 0 0 2.502-2.535 2.527 2.527 0 0 0-2.499-2.545v-.008z"
     _LOCATION_SVG_PATH = "M12.301 23.755c.746-.659 9.449-8.339 9.449-14.337C21.75 4.138 17.463 0 11.998 0 6.534 0 2.25 4.138 2.25 9.418c0 2.675 1.602 5.91 4.769 9.616a45.204 45.204 0 0 0 4.737 4.759l.246.207.26-.21zm-.305-2.424c.94-.889 2.376-2.32 3.77-4.011 1.084-1.315 2.105-2.741 2.847-4.152.753-1.433 1.142-2.705 1.142-3.75 0-4.113-3.328-7.423-7.757-7.423-4.428 0-7.753 3.309-7.753 7.423 0 1.941 1.208 4.713 4.29 8.319a42.901 42.901 0 0 0 3.461 3.594"
-    # _GENDER_SVG_PATH = "M15.507 13.032c1.14-.952 1.862-2.656 1.862-5.592C17.37 4.436 14.9 2 11.855 2 8.81 2 6.34 4.436 6.34 7.44c0 3.07.786 4.8 2.02 5.726-2.586 1.768-5.054 4.62-4.18 6.204 1.88 3.406 14.28 3.606 15.726 0 .686-1.71-1.828-4.608-4.4-6.338"
     _GENDER_SVG_PATH = "M12 21.994h.034c1.918.033 3.76-.191 5.157-.631 1.492-.47 1.964-1.013 2.056-1.23.004-.026.016-.156-.076-.444-.123-.382-.383-.884-.806-1.472-.846-1.175-2.142-2.411-3.473-3.341l-1.05-.735a1 1 0 0 1-.083-1.574l.968-.84c.684-.594 1.462-1.935 1.462-5.2C16.19 4.042 14.285 2.096 12 2c-2.285.096-4.19 2.042-4.19 4.525 0 3.266.78 4.607 1.463 5.2l.968.84a1 1 0 0 1-.083 1.575l-1.05.735c-1.33.93-2.626 2.166-3.473 3.34-.423.589-.683 1.091-.806 1.473-.092.288-.08.418-.076.444.092.217.564.76 2.056 1.23 1.397.44 3.24.664 5.157.631zm9.118-1.154c-.85 2.205-4.981 3.224-9.118 3.154-4.137.07-8.268-.949-9.118-3.154-.647-1.678 1.179-4.311 3.49-6.35a18.08 18.08 0 0 1 1.59-1.254 5.075 5.075 0 0 1-1.21-1.594c-.596-1.196-.941-2.85-.941-5.116C5.81 2.982 8.566.097 12 0c3.434.097 6.19 2.982 6.19 6.526 0 2.266-.346 3.92-.943 5.116a5.073 5.073 0 0 1-1.209 1.595c.54.377 1.077.8 1.59 1.253 2.311 2.039 4.137 4.672 3.49 6.35"
-    # NEW ONES CURRENTLY NOT USING
     _HEIGHT_SVG_PATH = "M16.95 0a1 1 0 0 1 .707.293l6.05 6.05a1 1 0 0 1 0 1.414l-15.95 15.95a1 1 0 0 1-1.414 0l-6.05-6.05a1 1 0 0 1 0-1.414L16.243.293A1 1 0 0 1 16.95 0M2.414 16.95l4.636 4.636 1.116-1.116-2.318-2.318a1 1 0 1 1 1.414-1.414l2.318 2.317 1.308-1.308-1.15-1.15a1 1 0 1 1 1.414-1.415l1.15 1.151 1.309-1.308-2.318-2.318a1 1 0 0 1 1.414-1.414l2.318 2.318 1.308-1.308-1.151-1.152a1 1 0 0 1 1.414-1.414l1.151 1.151 1.308-1.308-2.317-2.318a1 1 0 0 1 1.414-1.414l2.318 2.318 1.116-1.116-4.636-4.636z"
-    # not sure if sexuality would work since it has two svgs
     _SEXUALITY_SVG_PATH = "M10.077 18.153a8.076 8.076 0 1 0 0-16.153 8.076 8.076 0 0 0 0 16.153m0 2c5.565 0 10.076-4.511 10.076-10.076C20.153 4.51 15.642 0 10.077 0 4.51 0 0 4.511 0 10.077c0 5.565 4.511 10.076 10.077 10.076"
 
 
     def get_row_data(self):
-        # TODO: Look into this part: Check if SVG paths are correct
+
         if not self._is_profile_opened():
             self._open_profile()
 
@@ -243,7 +236,7 @@ class GeomatchHelper:
 
         for row in rows:
             svg = row.find_element(By.XPATH, ".//*[starts-with(@d, 'M')]").get_attribute('d')
-            value = row.find_element(By.XPATH, ".//div[2]").text                    # TODO: maybe one /
+            value = row.find_element(By.XPATH, ".//div[2]").text
             if svg == self._WORK_SVG_PATH:
                 rowdata['work'] = value
             if svg == self._STUDYING_SVG_PATH:
@@ -252,6 +245,10 @@ class GeomatchHelper:
                 rowdata['home'] = value.split(' ')[-1]
             if svg == self._GENDER_SVG_PATH:
                 rowdata['gender'] = value
+            if svg == self._HEIGHT_SVG_PATH:
+                rowdata['height'] = value
+            if svg == self._SEXUALITY_SVG_PATH:
+                rowdata['sexuality'] = value
             if svg == self._LOCATION_SVG_PATH or svg == self._LOCATION_SVG_PATH_2:
                 distance = value.split(' ')[0]
                 try:
@@ -314,7 +311,6 @@ class GeomatchHelper:
                     infoElements = section.find_elements(By.CSS_SELECTOR, "div[class^='Bdrs(100px)']")
                     for infoElement in infoElements:
                         # TODO: handle when there is +1 more
-                        # key = infoElement.find_element(By.TAG_NAME, "span").text.lower()
                         key = infoElement.find_element(By.TAG_NAME, "span").get_attribute("textContent").lower()
                         if key:
                             infoItemsDict[headline][key]= infoElement.text
@@ -357,7 +353,6 @@ class GeomatchHelper:
                     for infoElement in infoElements:
                         infoItemsList[headline].append(infoElement.text)
                 elif headline == 'my anthem':
-                    # TODO: Fix this probably should add try except
                     song = section.find_element(By.CSS_SELECTOR, "div[class*='Mb(4px) Ell']").text
                     artist = section.find_element(By.CSS_SELECTOR, "span[class*='Mstart(4px)']").text
                     anthem = {
@@ -384,17 +379,21 @@ class GeomatchHelper:
         for i in range(1, len_pics + 1):
             # Get the url of image
             try:
-                element = self.browser.find_element(By.XPATH, f"//main/div[1]/div/div/div/div[1]/div[1]/div/div[1]/span/div/div[1]/div[{i}]/div/div")
-                # TODO: maybe can try to add this wait thingy (WebDriverWait) to not get the exception
+                xpath = f"//main/div[1]/div/div/div/div[1]/div[1]/div/div[1]/span/div/div[1]/div[{i}]/div/div"
+                WebDriverWait(self.browser, self.delay).until(EC.presence_of_element_located((By.XPATH, xpath)))
+                element = self.browser.find_element(By.XPATH, xpath)
+
                 image_url = element.value_of_css_property('background-image').split('\"')
                 if len(image_url) > 1:
                     image_urls.append(image_url[1])
             except NoSuchElementException:
                 print('Could not find image, skipping')
+            except Exception as e:
+                print(e)
 
             action = ActionChains(self.browser)
             action.send_keys(Keys.SPACE).perform()
-            time.sleep(0.5)
+            time.sleep(0.1)
 
         return image_urls
 
